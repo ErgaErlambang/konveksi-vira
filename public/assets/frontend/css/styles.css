@@ -1,0 +1,6 @@
+
+
+.navbar,.card-collapse .card-header a i {
+    -webkit-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s;
+}
