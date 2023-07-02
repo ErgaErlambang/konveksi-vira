@@ -36,7 +36,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $material->name }}</td>
-                            <td>{{ $material->type }}</td>
+                            <td>{{ $material->type->name }}</td>
                             <td>{{ $material->stock }}</td>
                             <td class="text-center mx-auto">
                                 <div class="row p-2">

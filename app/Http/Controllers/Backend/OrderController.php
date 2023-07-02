@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Orders;
+use App\Models\OrderDetail;
 use App\Models\Status;
 use App\Models\Payment;
 use App\Models\Material;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use DB;
@@ -16,15 +18,14 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Orders::latest()->get();
-        $rejects = Orders::reject()->latest()->get();
+        $orders = Orders::where('status', 1)->latest()->get();
         
-        return view('backend.orders.index', compact('orders', 'rejects'));
+        return view('backend.orders.index', compact('orders'));
     }
 
     public function detail($id)
     {
-        $order = Orders::findOrFail($id);
+        $order = Orders::with('details')->findOrFail($id);
         $payments = Payment::where('order_id', $order->id)->get();
         return view('backend.orders.detail', compact("order", "payments"));
     }
@@ -44,8 +45,11 @@ class OrderController extends Controller
                 "name" => "required",
                 "phone" => "required",
                 "quantity" => "required",
+                "quantity.*" => "required",
                 "size" => "required",
+                "size.*" => "required",
                 "color" => "required",
+                "color.*" => "required",
                 "material" => "required",
                 "other_materials" => Rule::requiredIf($request->material == 'others'),
                 "price" => Rule::requiredIf(!empty($request->price)),
@@ -69,16 +73,28 @@ class OrderController extends Controller
                 }
             }
 
+            // Always create users if using backdoor transaction
+            $email = strtolower(Str::slug($request->name, '-')).'@app.com';
+            $user = User::where('email', $email)->first();
+            if($user == null) {
+                $user = new User;
+                // role 6 == users, simple ways
+                $user->role_id = 6;
+                $user->name = $request->name;
+                $user->email = strtolower(Str::slug($request->name, '-')).'@app.com';
+                $user->password = bcrypt('password');
+                $user->save();
+            }
+
+
             $transaction = new Orders;
             // 1 = Pending, more check file : helpers/general_helpers.php
             $transaction->status = 1;
+            $transaction->user_id = $user->id;
             $transaction->material_id = $material;
             $transaction->brand_name = $request->brand;
             $transaction->pic_name = $request->name;
             $transaction->pic_phone = $request->phone;
-            $transaction->quantity = $request->quantity;
-            $transaction->color = $request->color;
-            $transaction->size = $request->size;
             $transaction->only_services = !empty($request->only_services) ? true : false;
             $transaction->installment = !empty($request->is_installment) ? true : false;
             $transaction->price = !empty($request->price) ? $request->price : null;
@@ -98,6 +114,15 @@ class OrderController extends Controller
             $no_invoice = "INV-".date("Ymd")."-".rand(1000,9999);
             $transaction->no_invoice = $no_invoice;
             $transaction->save();
+
+            foreach ($request->quantity as $key => $qty) {
+                $detail = new OrderDetail;
+                $detail->quantity = $qty;
+                $detail->color = $request->color[$key];
+                $detail->size = $request->size[$key];
+                $detail->order_id = $transaction->id;
+                $detail->save();
+            }
 
             DB::commit();
 

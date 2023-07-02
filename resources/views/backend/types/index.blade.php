@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title', 'History Management')
+@section('title', 'Types Management')
 
 @push('styles')
 <link href="{{asset('assets/backend/plugins/custom/datatables/datatables.bundle.css?v=7.0.5')}}" rel="stylesheet" type="text/css" />
@@ -11,10 +11,11 @@
     <div class="card card-custom">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="card-title">
-                <h3 class="card-label">History Management</h3>
+                <h3 class="card-label">Tipe Management</h3>
             </div>
             <div class="card-toolbar">
                 <div class="dropdown dropdown-inline mr-2">
+                    <a href="{{ route('admin.types.create') }}" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>Buat</a>
                 </div>
             </div>
         </div>
@@ -24,24 +25,28 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Transaction</th>
-                        <th>Status</th>
-                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($histories as $key => $history)
+                    @foreach ($materials as $key => $material)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>
-                                <a href="{{ route('admin.order.detail', $history->id) }}" class="btn btn-text-primary btn-hover-light-primary font-weight-bold">
-                                    {{ $history->pic_name }}
-                                </a>
+                            <td>{{ $material->name }}</td>
+                            <td class="text-center mx-auto">
+                                <div class="row p-2">
+                                    <a href="{{ route('admin.types.edit', $material->id) }}" class="btn btn-link btn-sm btn-info btn-just-icon like mr-1" style="display: block; margin-block-end: 1.5em;">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <form action="{{ route('admin.types.destroy', $material->id) }}" class="form-delete" method="POST">
+                                        @csrf
+                                        <button id="delete-btn" type="submit" class="btn btn-link btn-sm btn-danger btn-just-icon remove " name="delete_modal">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
-                            <td>
-                                {!! getStatusTrx($history->status) !!}
-                            </td>
-                            <td>{{ $history->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -58,7 +63,7 @@
     $(document).ready(function() {
         $('#kt_datatable_2').DataTable({
             responsive:true,
-            lengthMenu: [10, 15, 25, 50],
+            lengthMenu: [5, 10, 25, 50],
         });
     } );
 </script>

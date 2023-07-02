@@ -14,4 +14,14 @@ class Orders extends Model
     {
         return $query->where('status', 2);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id');
+    }
 }

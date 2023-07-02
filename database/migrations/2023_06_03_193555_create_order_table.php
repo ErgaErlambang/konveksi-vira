@@ -26,11 +26,9 @@ return new class extends Migration
             $table->string('pic_phone')->nullable();
             $table->string('no_invoice')->nullable();
             $table->string('status');
-            $table->integer('quantity');
-            $table->string('color');
-            $table->string('size');
+
             $table->string('other')->nullable();
-            $table->decimal('price')->nullable();
+            $table->decimal('price', 17, 2)->nullable();
             $table->string('design')->nullable();
             $table->boolean('only_services')->default(0);
             $table->boolean('installment')->default(0);
@@ -45,6 +43,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        Schema::dropIfExists('orders');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 };

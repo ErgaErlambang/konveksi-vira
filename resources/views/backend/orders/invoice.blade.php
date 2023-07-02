@@ -16,20 +16,20 @@
                         <h1 class="display-4 font-weight-boldest mb-10">Invoice</h1>
                         <div class="d-flex flex-column align-items-md-end px-0">
                             <a href="#" class="mb-5 display-4 font-weight-boldest text-dark">
-                                CMT Berkah Hijrah
+                                Konveksi
                                 {{-- <img src="{{ asset('assets/backend/media/logos/logo-dark.png') }}" alt="" /> --}}
                             </a>
                             <span class="d-flex flex-column align-items-md-end opacity-70">
-                                <span>Jl. MH.Thamrin, Gaga, Kecamatan Pakuhaji</span>
-                                <span>Kabupaten Tangerang, Banten 15570</span>
-                                <span>0812-9628-9998</span>
+                                <span>Jl. cibangkong</span>
+                                <span>Kota Bandung, Jawa Barat 14045</span>
+                                <span>0812-3456-9998</span>
                             </span>
                         </div>
                     </div>
                     <div class="border-bottom w-100"></div>
                     <div class="d-flex justify-content-between pt-6">
                         <div class="d-flex flex-column flex-root">
-                            <span class="font-weight-bolder mb-2">DATA</span>
+                            <span class="font-weight-bolder mb-2">TANGGAL</span>
                             <span class="opacity-70">{{ $transaction->created_at->format("d F Y") }}</span>
                         </div>
                         <div class="d-flex flex-column flex-root">
@@ -37,10 +37,10 @@
                             <span class="opacity-70">{{ $transaction->no_invoice }}</span>
                         </div>
                         <div class="d-flex flex-column flex-root">
-                            <span class="font-weight-bolder mb-2">INVOICE TO.</span>
-                            <span class="opacity-70">{{ $transaction->data['name'] }}
-                                <br />{{$transaction->data['phone']}}</span>
-                        </div>
+                            <span class="font-weight-bolder mb-2">INVOICE KEPADA.</span>
+                            <span class="opacity-70">{{ $transaction->pic_name }}
+                                <br />{{ $transaction->pic_phone }}</span>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                             </thead>
                             <tbody>
                                 <tr class="font-weight-boldest">
-                                    <td class="pl-0 pt-7">{{ $transaction->data['brand'] }} - {{ $transaction->data['article'] }}</td>
-                                    <td class="text-right pt-7">{{ array_sum($transaction->data['quantity']) }}</td>
+                                    <td class="pl-0 pt-7">{{ $transaction->brand_name }}</td>
+                                    <td class="text-right pt-7">{{ array_sum(array_column($transaction->details->toArray(), 'quantity')) }}</td>
                                     <td class="text-danger pr-0 pt-7 text-right">IDR {{ cRupiah($transaction->price) }}</td>
                                 </tr>
                             </tbody>
@@ -77,7 +77,7 @@
                             </thead>
                             <tbody>
                                 <tr class="font-weight-bolder">
-                                    <td class="text-danger font-size-h3 font-weight-boldest">IDR {{ cRupiah($transaction->price * array_sum($transaction->data['quantity'])) }}</td>
+                                    <td class="text-danger font-size-h3 font-weight-boldest">IDR {{ cRupiah($transaction->price * array_sum(array_column($transaction->details->toArray(), 'quantity'))) }}</td>
                                 </tr>
                             </tbody>
                         </table>

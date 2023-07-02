@@ -23,7 +23,7 @@ class TestimoniController extends Controller
     {
         try {
             $request->validate([
-                "image" => "required|image|mimes:jpg,png,jpeg,gif,svg|max:2048",
+                "image" => "required|image|mimes:jpg,png,jpeg,gif,svg",
             ]);
 
             $testimoni = new Testimoni;
@@ -56,7 +56,7 @@ class TestimoniController extends Controller
         $testimoni = Testimoni::findOrFail($id);
         try {
             $request->validate([
-                "image" => "image|mimes:jpg,png,jpeg,gif,svg|max:2048",
+                "image" => "image|mimes:jpg,png,jpeg,gif,svg",
             ]);
             if($request->hasFile("image")) {
                 $path = storage_path("uploads/testi/");
@@ -76,7 +76,7 @@ class TestimoniController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $testimoni = Testimoni::findOrFail($id);
         $testimoni->delete();

@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materials', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('type_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('types')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name')->nullable();
-            $table->integer('stock')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -31,7 +28,7 @@ return new class extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Schema::dropIfExists('materials');
+        Schema::dropIfExists('types');
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 };

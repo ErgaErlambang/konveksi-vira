@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@app.com',
                 'password' => Hash::make('password')
-            ]
+            ],
         ];
 
         foreach ($data as $user) {

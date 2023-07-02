@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\TestimoniController;
 use App\Http\Controllers\Backend\HistoryController;
 use App\Http\Controllers\Backend\ProjectController;
 use App\Http\Controllers\Backend\MaterialController;
+use App\Http\Controllers\Backend\TypesController;
 
 
 Route::prefix('auth')->middleware('guest')->group(function () {
@@ -89,6 +90,16 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/{id}', 'edit')->name('admin.material.edit');
             Route::post('/update/{id}', 'update')->name('admin.material.update');
             Route::post('/destory/{id}', 'destroy')->name('admin.material.destroy');
+        });
+
+        // Types Management
+        Route::prefix('types')->controller(TypesController::class)->group(function() {
+            Route::get('/', 'index')->name('admin.types.index');
+            Route::get('/create', 'create')->name('admin.types.create');
+            Route::post('/store', 'store')->name('admin.types.store');
+            Route::get('/edit/{id}', 'edit')->name('admin.types.edit');
+            Route::post('/update/{id}', 'update')->name('admin.types.update');
+            Route::post('/destory/{id}', 'destroy')->name('admin.types.destroy');
         });
 
         // Project Management

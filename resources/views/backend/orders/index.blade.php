@@ -55,49 +55,6 @@
             </table>
         </div>
     </div>
-
-    <div class="mt-5 card card-custom">
-        <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            <div class="card-title">
-                <h3 class="card-label">Declined Orders</h3>
-            </div>
-        </div>
-        <div class="card-body">
-            <table class="table table-separate table-head-custom" id="kt_datatable_21">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Owner</th>
-                        <th>Brand</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($rejects as $key => $reject)
-                        <tr>
-                            <td>{{ $key+1 }}</td>
-                            <td>{{ $order->pic_name }}</td>
-                            <td>{{ $order->brand_name }}</td>
-                            <td>{!! getStatusTrx($order->status) !!}</td>
-                            <td>{{ $reject->updated_at }}</td>
-                            <td class="text-center mx-auto">
-                                <div class="row p-2">
-                                    <a href="{{ route('admin.order.edit', $reject->id) }}" class="btn btn-link btn-sm btn-info btn-just-icon like mr-1" style="display: block; margin-block-end: 1.5em;">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="{{ route('admin.order.detail', $reject->id) }}" class="btn btn-link btn-sm btn-primary btn-just-icon like mr-1" style="display: block; margin-block-end: 1.5em;">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 @endsection
 

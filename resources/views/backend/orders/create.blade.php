@@ -52,23 +52,34 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label> Color {!! required_icon() !!}</label>
-                            <input type="text" class="form-control" placeholder="Requested color" name="color" value="{{ old('color') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label> Size {!! required_icon() !!}</label>
-                            <input type="text" class="form-control" placeholder="Requested size" name="size" value="{{ old('size') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label> Quantity {!! required_icon() !!}</label>
-                            <input type="number" class="form-control" placeholder="Requested quantity" name="quantity" value="{{ old('quantity') }}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="getOR">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Color {!! required_icon() !!}</label>
+                                        <input type="text" class="form-control" placeholder="Requested color" name="color[]" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Size {!! required_icon() !!}</label>
+                                        <input type="text" class="form-control" placeholder="Requested size" name="size[]" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label> Quantity {!! required_icon() !!}</label>
+                                        <input type="number" class="form-control" placeholder="Requested quantity" name="quantity[]" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-1 mt-5 pt-3">
+                                    <button type="button" class="btn btn-icon btn-primary btn-hover-primary shadow-sm btn-sm btn-add-or">
+                                        <i class="ki ki-plus icon-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,6 +174,49 @@
                 $("#other_material").hide();
             }
         });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        var container = $('.getOR');
+        var btnIncrement = $('.btn-add-or');
+        
+        btnIncrement.click(function() {
+            container.append(
+                `<div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label> Color {!! required_icon() !!}</label>
+                            <input type="text" class="form-control" placeholder="Requested color" name="color[]" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label> Size {!! required_icon() !!}</label>
+                            <input type="text" class="form-control" placeholder="Requested size" name="size[]" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label> Quantity {!! required_icon() !!}</label>
+                            <input type="number" class="form-control" placeholder="Requested quantity" name="quantity[]" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-1 mt-5 pt-3">
+                        <button type="button" class="btn btn-icon btn-danger btn-hover-danger shadow-sm btn-sm" id="btn-del-or">
+                            <i class="ki ki-bold-close icon-sm"></i>
+                        </button>
+                    </div>
+                </div>`
+            )
+            $('.select2').select2({
+                placeholder: "Select an option"
+            });
+
+            $("body").on("click","#btn-del-or",function(){
+                $(this).closest('.getOR .row').remove();
+            }); 
+        })
     });
 </script>
 @endpush

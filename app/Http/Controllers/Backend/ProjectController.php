@@ -23,7 +23,7 @@ class ProjectController extends Controller
     {
         try {
             $request->validate([
-                "image" => "required|image|mimes:jpg,png,jpeg,gif,svg|max:2048",
+                "image" => "required|image|mimes:jpg,png,jpeg,gif,svg",
             ]);
 
             $project = new Project;
@@ -56,7 +56,7 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         try {
             $request->validate([
-                "image" => "image|mimes:jpg,png,jpeg,gif,svg|max:2048",
+                "image" => "image|mimes:jpg,png,jpeg,gif,svg",
             ]);
             if($request->hasFile("image")) {
                 $path = storage_path("uploads/project/");
@@ -76,7 +76,7 @@ class ProjectController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $project = Project::findOrFail($id);
         $project->delete();

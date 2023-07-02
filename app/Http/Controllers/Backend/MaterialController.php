@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Material;
+use App\Models\Types;
 
 class MaterialController extends Controller
 {
@@ -16,7 +17,8 @@ class MaterialController extends Controller
 
     public function create()
     {
-        return view('backend.material.create');
+        $types = Types::all();
+        return view('backend.material.create', compact('types'));
     }
 
     public function store(Request $request)
@@ -30,7 +32,7 @@ class MaterialController extends Controller
 
             $material = new Material;
             $material->name = $request->name;
-            $material->type = $request->type;
+            $material->type_id = $request->type;
             $material->stock = $request->stock;
             $material->save();
 
@@ -42,8 +44,9 @@ class MaterialController extends Controller
 
     public function edit($id)
     {
+        $types = Types::all();
         $material = Material::findOrFail($id);
-        return view('backend.material.edit', compact('project'));
+        return view('backend.material.edit', compact('material', 'types'));
     }
 
     public function update(Request $request, $id)
@@ -57,7 +60,7 @@ class MaterialController extends Controller
             ]);
 
             $material->name = $request->name;
-            $material->type = $request->type;
+            $material->type_id = $request->type;
             $material->stock = $request->stock;
             $material->update();
 
@@ -67,7 +70,7 @@ class MaterialController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $material = Material::findOrFail($id);
         $material->delete();

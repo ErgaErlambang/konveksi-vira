@@ -27,6 +27,22 @@ class RolesSeeder extends Seeder
             [
                 'name' => 'admin',
                 'slug' => 'admin'
+            ],
+            [
+                'name' => 'Produksi',
+                'slug' => 'produksi'
+            ],
+            [
+                'name' => 'Pemilik',
+                'slug' => 'pemilik'
+            ],
+            [
+                'name' => 'Bahan Baku',
+                'slug' => 'bahan-baku'
+            ],
+            [
+                'name' => 'User',
+                'slug' => 'user',
             ]
         ];
 

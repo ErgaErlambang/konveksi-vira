@@ -13,7 +13,7 @@
         <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">
-                    <h3 class="card-label">Material Testimoni</h3>
+                    <h3 class="card-label">Tambah Bahan Baku</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -22,13 +22,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label> Name {!! required_icon() !!}</label>
+                    <label> Nama {!! required_icon() !!}</label>
                     <input type="text" class="form-control" placeholder="Material name" name="name" value="{{ old('name') }}">
                 </div>
 
                 <div class="form-group">
-                    <label> Type {!! required_icon() !!}</label>
-                    <input type="text" class="form-control" placeholder="Material type" name="type" value="{{ old('type') }}">
+                    <label class="col-form-label text-right">Tipe {!! required_icon() !!}</label>
+                    <select class="form-control select2" id="kt_select2_1" name="type" required>
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->name }}</option> 
+                        @endforeach
+                    </select>
                 </div>
                 
                 <div class="form-group">
@@ -47,5 +51,9 @@
 @endsection
 
 @push('scripts')
-
+<script>
+    $('.select2').select2({
+        placeholder: "Select an option"
+    });
+</script>
 @endpush

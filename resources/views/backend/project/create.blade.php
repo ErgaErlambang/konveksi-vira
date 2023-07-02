@@ -21,7 +21,7 @@
         <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">
-                    <h3 class="card-label">Project Testimoni</h3>
+                    <h3 class="card-label">Buat Projek</h3>
                 </div>
             </div>
             <div class="card-body">

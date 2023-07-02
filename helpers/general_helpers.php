@@ -12,7 +12,7 @@ function getStatusTrx($status)
 {
     switch ($status) {
         case 1:
-            return "<span class='label label-light-info label-pill label-inline'> Pending </span>";
+            return "<span class='label label-light-warning label-pill label-inline'> Pending </span>";
             break;
         
         case 2:
@@ -28,7 +28,7 @@ function getStatusTrx($status)
             break;
 
         case 5:
-            return "<span class='label label-light-info label-pill label-inline'> Done </span>";
+            return "<span class='label label-light-success label-pill label-inline'> Done </span>";
             break;
         
         default:

@@ -5,19 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Material extends Model
+class Types extends Model
 {
     use HasFactory;
-    
-    protected $table = "materials";
+
+    protected $table = "types";
     protected $fillable = [
         'name',
-        'type_id',
-        'stock'
     ];
-
-    public function type()
-    {
-        return $this->belongsTo(Types::class);
-    }
 }

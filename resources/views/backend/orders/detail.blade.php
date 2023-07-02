@@ -59,24 +59,28 @@
                         <div class="col-3"></div>
                     </div>
 
-                    <div class="row bg-white py-5 font-weight-bold text-center">
-                        <div class="col-3 text-left px-5">Color</div>
-                        <div class="col-3">{{ $order->color }}</div>
-                        <div class="col-3"></div>
-                        <div class="col-3"></div>
-                    </div>
-                    <div class="row bg-white py-5 font-weight-bold text-center">
-                        <div class="col-3 text-left px-5">Size</div>
-                        <div class="col-3">{{ $order->size }}</div>
-                        <div class="col-3"></div>
-                        <div class="col-3"></div>
-                    </div>
-                    <div class="row bg-white py-5 font-weight-bold text-center">
-                        <div class="col-3 text-left px-5">Quantity</div>
-                        <div class="col-3">{{ $order->quantity }}</div>
-                        <div class="col-3"></div>
-                        <div class="col-3"></div>
-                    </div>
+                    @foreach ($order->details as $key => $item)
+                        <div class="row bg-white py-5 font-weight-bold text-center">
+                            <div class="col-3 text-left px-5">Color</div>
+                            <div class="col-3">{{ $item->color }}</div>
+                            <div class="col-3"></div>
+                            <div class="col-3"></div>
+                        </div>
+                        <div class="row bg-white py-5 font-weight-bold text-center">
+                            <div class="col-3 text-left px-5">Size</div>
+                            <div class="col-3">{{ $item->size }}</div>
+                            <div class="col-3"></div>
+                            <div class="col-3"></div>
+                        </div>
+                        <div class="row bg-white py-5 font-weight-bold text-center">
+                            <div class="col-3 text-left px-5">Quantity</div>
+                            <div class="col-3">{{ $item->quantity }}</div>
+                            <div class="col-3"></div>
+                            <div class="col-3"></div>
+                        </div>
+                        <hr>
+                    @endforeach
+
                     <div class="row bg-gray-100 py-5 font-weight-bold text-center">
                         <div class="col-3 text-left px-5 font-weight-boldest">Other Request</div>
                         <div class="col-3">{{ $order->other }}</div>
@@ -154,6 +158,7 @@
         <div class="card-footer">
             <div class="d-flex justify-content-between">
                 <a href="{{ route('admin.order.index') }}" class="btn btn-secondary">Back to Orders</a>
+                <a href="{{ route('admin.order.invoice', $order->no_invoice) }}" target="_blank" class="btn btn-light-primary font-weight-bold"> Invoice </a>
             </div>
         </div>
     </div>

@@ -76,7 +76,7 @@
                                 @if($role == 1 || $role == 2)
                                     <!-- BEGIN TRANSACTIONS ORDERS -->
                                     <li class="menu-section">
-                                        <h4 class="menu-text">Orders</h4>
+                                        <h4 class="menu-text">Transaksi dan Bahan</h4>
                                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                                     </li>
 
@@ -92,7 +92,22 @@
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="menu-text">Orders</span>
+                                            <span class="menu-text">Transaksi</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Types -->
+                                    <li class="menu-item {{ Request::is('admin/types*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                                        <a href="{{ route('admin.types.index') }}" class="menu-link">
+                                            <span class="svg-icon menu-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000"/>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <span class="menu-text">Tipe Bahan</span>
                                         </a>
                                     </li>
 
@@ -108,7 +123,7 @@
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="menu-text">Materials</span>
+                                            <span class="menu-text">Bahan</span>
                                         </a>
                                     </li>
 
@@ -123,13 +138,13 @@
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="menu-text">History</span>
+                                            <span class="menu-text">Histori Transaksi</span>
                                         </a>
                                     </li>
 
                                     <!-- BEGIN TESTIMONIAL -->
                                     <li class="menu-section">
-                                        <h4 class="menu-text">Miscellaneous</h4>
+                                        <h4 class="menu-text">Lainnya</h4>
                                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                                     </li>
 
@@ -160,7 +175,7 @@
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="menu-text">Project</span>
+                                            <span class="menu-text">Projek</span>
                                         </a>
                                     </li>
                                 @endif
