@@ -33,7 +33,7 @@
                                         <span class="menu-text">Dashboard</span>
                                     </a>
                                 </li>
-                                @if($role == 1)
+                                @if($role == 1 || $role == 4)
                                     <!-- BEGIN USERS -->
                                     <li class="menu-section">
                                         <h4 class="menu-text">User Management</h4>
@@ -73,13 +73,16 @@
                                         </a>
                                     </li>                                                                    
                                 @endif
-                                @if($role == 1 || $role == 2)
-                                    <!-- BEGIN TRANSACTIONS ORDERS -->
+
+                                <!-- BEGIN TRANSACTIONS ORDERS -->
+                                @if($role == 1 || $role == 3 || $role == 2 || $role == 4)
                                     <li class="menu-section">
-                                        <h4 class="menu-text">Transaksi dan Bahan</h4>
+                                        <h4 class="menu-text">Transaksi</h4>
                                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                                     </li>
-
+                                @endif
+                                
+                                @if($role == 1 || $role == 3 || $role == 2)
                                     <!-- Orders -->
                                     <li class="menu-item {{ Request::is('admin/orders*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                                         <a href="{{ route('admin.order.index') }}" class="menu-link">
@@ -95,7 +98,33 @@
                                             <span class="menu-text">Transaksi</span>
                                         </a>
                                     </li>
+                                @endif
+                                @if($role == 1 || $role == 2 || $role == 4)
+                                    <!-- History -->
+                                    <li class="menu-item {{ Request::is('admin/history*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                                        <a href="{{ route('admin.history.index') }}" class="menu-link">
+                                            <span class="svg-icon menu-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <path d="M8,4 L16,4 C17.1045695,4 18,4.8954305 18,6 L18,17.726765 C18,18.2790497 17.5522847,18.726765 17,18.726765 C16.7498083,18.726765 16.5087052,18.6329798 16.3242754,18.4639191 L12.6757246,15.1194142 C12.2934034,14.7689531 11.7065966,14.7689531 11.3242754,15.1194142 L7.67572463,18.4639191 C7.26860564,18.8371115 6.63603827,18.8096086 6.26284586,18.4024896 C6.09378519,18.2180598 6,17.9769566 6,17.726765 L6,6 C6,4.8954305 6.8954305,4 8,4 Z" fill="#000000"/>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <span class="menu-text">Histori Transaksi</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                
+                                @if($role == 1 || $role == 4 || $role == 5)
+                                    <!-- BEGIN Materials -->
+                                    <li class="menu-section">
+                                        <h4 class="menu-text">Bahan</h4>
+                                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                                    </li>
+                                @endif
 
+                                @if($role == 1 || $role == 5)
                                     <!-- Types -->
                                     <li class="menu-item {{ Request::is('admin/types*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                                         <a href="{{ route('admin.types.index') }}" class="menu-link">
@@ -110,7 +139,9 @@
                                             <span class="menu-text">Tipe Bahan</span>
                                         </a>
                                     </li>
+                                @endif
 
+                                @if($role == 1 || $role == 4 || $role == 5)
                                     <!-- Materials -->
                                     <li class="menu-item {{ Request::is('admin/material*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                                         <a href="{{ route('admin.material.index') }}" class="menu-link">
@@ -126,22 +157,9 @@
                                             <span class="menu-text">Bahan</span>
                                         </a>
                                     </li>
-
-                                    <!-- History -->
-                                    <li class="menu-item {{ Request::is('admin/history*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
-                                        <a href="{{ route('admin.history.index') }}" class="menu-link">
-                                            <span class="svg-icon menu-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24"/>
-                                                        <path d="M8,4 L16,4 C17.1045695,4 18,4.8954305 18,6 L18,17.726765 C18,18.2790497 17.5522847,18.726765 17,18.726765 C16.7498083,18.726765 16.5087052,18.6329798 16.3242754,18.4639191 L12.6757246,15.1194142 C12.2934034,14.7689531 11.7065966,14.7689531 11.3242754,15.1194142 L7.67572463,18.4639191 C7.26860564,18.8371115 6.63603827,18.8096086 6.26284586,18.4024896 C6.09378519,18.2180598 6,17.9769566 6,17.726765 L6,6 C6,4.8954305 6.8954305,4 8,4 Z" fill="#000000"/>
-                                                    </g>
-                                                </svg>
-                                            </span>
-                                            <span class="menu-text">Histori Transaksi</span>
-                                        </a>
-                                    </li>
-
+                                @endif
+                                
+                                @if($role == 1 || $role == 2)
                                     <!-- BEGIN TESTIMONIAL -->
                                     <li class="menu-section">
                                         <h4 class="menu-text">Lainnya</h4>
@@ -179,7 +197,6 @@
                                         </a>
                                     </li>
                                 @endif
-
                             </ul>
                         </div>
                     </div>

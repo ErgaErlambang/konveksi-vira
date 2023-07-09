@@ -2,7 +2,7 @@
     color-on-scroll="300" id="sectionsNav">
     <div class="container">
         <a class="navbar-brand mr-lg-5" href="{{ route('home') }}">
-            Clothes Convection
+            Tclothbandung
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
             aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">

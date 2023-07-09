@@ -28,10 +28,39 @@ class UserSeeder extends Seeder
                 'email' => 'superadministrator@app.com',
                 'password' => Hash::make('password')
             ],
+            // Admin
             [
                 'role' => 2,
                 'name' => 'Admin',
                 'email' => 'admin@app.com',
+                'password' => Hash::make('password')
+            ],
+            // Produksi
+            [
+                'role' => 3,
+                'name' => 'Produksi',
+                'email' => 'production@app.com',
+                'password' => Hash::make('password')
+            ],
+            // Owner
+            [
+                'role' => 4,
+                'name' => 'Pemilik',
+                'email' => 'owner@app.com',
+                'password' => Hash::make('password')
+            ],
+            // Bahan baku
+            [
+                'role' => 5,
+                'name' => 'K. Bahan Baku',
+                'email' => 'bahan@app.com',
+                'password' => Hash::make('password')
+            ],
+            // User
+            [
+                'role' => 6,
+                'name' => 'User',
+                'email' => 'user@app.com',
                 'password' => Hash::make('password')
             ],
         ];

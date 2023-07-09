@@ -18,7 +18,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Orders::where('status', 1)->latest()->get();
+        $orders = Orders::forRole()->get();
         
         return view('backend.orders.index', compact('orders'));
     }
@@ -52,7 +52,6 @@ class OrderController extends Controller
                 "color.*" => "required",
                 "material" => "required",
                 "other_materials" => Rule::requiredIf($request->material == 'others'),
-                "price" => Rule::requiredIf(!empty($request->price)),
 
             ]);
             DB::beginTransaction();
@@ -97,7 +96,6 @@ class OrderController extends Controller
             $transaction->pic_phone = $request->phone;
             $transaction->only_services = !empty($request->only_services) ? true : false;
             $transaction->installment = !empty($request->is_installment) ? true : false;
-            $transaction->price = !empty($request->price) ? $request->price : null;
 
             if($request->hasFile("design")) {
                 $path = storage_path("uploads/design/");
@@ -202,12 +200,14 @@ class OrderController extends Controller
             $order = Orders::findOrFail($id);
             
             $request->validate([
-                "status" => "required"
+                "status" => "required",
+                "price" => Rule::requiredIf(!empty($request->price)),
             ]);
 
             DB::beginTransaction();
 
             $order->status = $request->status;
+            $order->price = !empty($request->price) ? $request->price : null;
             $order->update();
             
             DB::commit();

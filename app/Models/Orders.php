@@ -15,6 +15,31 @@ class Orders extends Model
         return $query->where('status', 2);
     }
 
+    public function scopeforRole($query) {
+        $role = getRoleId();
+        switch ($role) {            
+            case 2:
+                return $query->whereIn('status', [1, 6])->orderBy('created_at', 'DESC');
+                break;
+
+            case 3:
+                return $query->whereIn('status', [6, 7]);
+                break;
+
+            case 4:
+                return $query->whereIn('status', [8]);
+                break;
+
+            case 5:
+                return $query->whereIn('status', [7, 9]);
+                break;
+
+            default:
+                return $query->orderBy('created_at', 'DESC');
+                break;
+        }
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

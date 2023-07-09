@@ -97,12 +97,6 @@
                     
                 </div>
 
-                <div class="form-group">
-                    <label> Price {!! required_icon() !!}</label>
-                    <input type="number" class="form-control" placeholder="Price" name="price" value="{{ old('price') }}">
-                </div>
-
-
                 <div class="form-group row mt-5">
                     <label class="col-md-12"> Design Logo</label>
                     <div class="image-input image-input-empty image-input-outline ml-3" id="kt_image_5" style="background-image: url('{{ asset('assets/backend/img/placeholder.png') }}')">

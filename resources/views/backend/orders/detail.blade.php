@@ -132,13 +132,33 @@
                             @csrf
                             <div class="col-12 text-left px-5 font-weight-boldest mb-5">Approval</div>
                             <div class="col-12 px-5">
+                                @php
+                                    $role = getRoleId();
+                                @endphp
                                 <div class="form-group">
                                     <label class="col-12">Status {!! required_icon() !!}</label>
                                     <select class="form-control select2 w-100" id="kt_select2_1" name="status" required>
                                         <option></option>
-                                        <option value="3">Approved</option>
-                                        <option value="2">Rejected</option>
-                                        <option value="5">Done</option>
+                                        @if ($role == 2)
+                                            <option value="6">Approved</option>
+                                            <option value="2">Rejected</option>
+                                        @elseif($role == 3)
+                                            <option value="7">Approved</option>
+                                        @elseif($role == 4)
+                                            <option value="9">Approved</option>
+                                        @elseif($role == 5)
+                                            <option value="8">Approved</option>
+                                        @else
+                                            <option value="1">Pending</option>
+                                            <option value="2">Reject</option>
+                                            <option value="3">Approve Orders</option>
+                                            <option value="4">Paid</option>
+                                            <option value="5">Done</option>
+                                            <option value="6">Approve Admin</option>
+                                            <option value="7">Approve Production</option>
+                                            <option value="8">Approve Material</option>
+                                            <option value="9">Approve Owners</option>
+                                        @endif
                                     </select>
                                 </div>
 
@@ -148,6 +168,13 @@
                                         <textarea id="form7" name="note" placeholder="Note" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
+
+                                @if($order->status == 9)
+                                    <div class="form-group">
+                                        <label> Harga Transaksi {!! required_icon() !!} </label>
+                                        <input type="number" class="form-control" value="" placeholder="Harga" name="price" required>
+                                    </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-success">Update</button>
                         </form>

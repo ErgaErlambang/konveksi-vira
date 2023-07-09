@@ -31,6 +31,22 @@ function getStatusTrx($status)
             return "<span class='label label-light-success label-pill label-inline'> Done </span>";
             break;
         
+        case 6:
+            return "<span class='label label-light-warning label-pill label-inline'> Review Production </span>";
+            break;
+        
+        case 7:
+            return "<span class='label label-light-success label-pill label-inline'> Review Material </span>";
+            break;
+
+        case 8: 
+            return "<span class='label label-light-success label-pill label-inline'> Owner's review </span>";
+            break;
+        
+        case 9:
+            return "<span class='label label-light-success label-pill label-inline'> Material Approved </span>";
+            break;
+
         default:
             return "<span class='label label-light-danger label-pill label-inline'> Unknow Status </span>";
             break;
