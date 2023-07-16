@@ -9,6 +9,7 @@ use App\Models\OrderDetail;
 use App\Models\Status;
 use App\Models\Payment;
 use App\Models\Material;
+use App\Models\MaterialUsed;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -25,14 +26,15 @@ class OrderController extends Controller
 
     public function detail($id)
     {
+        $materials = Material::all();
         $order = Orders::with('details')->findOrFail($id);
         $payments = Payment::where('order_id', $order->id)->get();
-        return view('backend.orders.detail', compact("order", "payments"));
+        return view('backend.orders.detail', compact("order", "payments", "materials"));
     }
 
     public function create()
     {
-        $materials = Material::all();
+        $materials = Material::where('type_id', 1)->get();
         return view('backend.orders.create', compact('materials'));
     }
 
@@ -72,23 +74,28 @@ class OrderController extends Controller
                 }
             }
 
-            // Always create users if using backdoor transaction
-            $email = strtolower(Str::slug($request->name, '-')).'@app.com';
-            $user = User::where('email', $email)->first();
-            if($user == null) {
-                $user = new User;
-                // role 6 == users, simple ways
-                $user->role_id = 6;
-                $user->name = $request->name;
-                $user->email = strtolower(Str::slug($request->name, '-')).'@app.com';
-                $user->password = bcrypt('password');
-                $user->save();
+            if(Auth::user()->role_id !== 6) {
+                // Always create users if using backdoor transaction
+                $email = strtolower(Str::slug($request->name, '-')).'@app.com';
+                $user = User::where('email', $email)->first();
+                $status = 7;
+                if($user == null) {
+                    $user = new User;
+                    // role 6 == users, simple ways
+                    $user->role_id = 6;
+                    $user->name = $request->name;
+                    $user->email = strtolower(Str::slug($request->name, '-')).'@app.com';
+                    $user->password = bcrypt('password');
+                    $user->save();
+                }
+            }else {
+                $user = Auth::user();
+                $status = 1;
             }
-
 
             $transaction = new Orders;
             // 1 = Pending, more check file : helpers/general_helpers.php
-            $transaction->status = 1;
+            $transaction->status = $status;
             $transaction->user_id = $user->id;
             $transaction->material_id = $material;
             $transaction->brand_name = $request->brand;
@@ -201,14 +208,34 @@ class OrderController extends Controller
             
             $request->validate([
                 "status" => "required",
-                "price" => Rule::requiredIf(!empty($request->price)),
+                "price" => Rule::requiredIf($request->status == 8),
             ]);
 
+            
             DB::beginTransaction();
 
             $order->status = $request->status;
-            $order->price = !empty($request->price) ? $request->price : null;
+            if($request->status == 8) {
+                $order->price = $request->price;
+            }
             $order->update();
+
+            if($request->status == 7) {
+                foreach ($request->materials as $key => $material) {
+                    if($material == "others") {
+                        $new_material = new Material;
+                        $new_material->name = $request->other_materials[$key];
+                        $new_material->save();
+                    }else {
+                        $new_material = Material::find($material);
+                    }
+                    $used = new MaterialUsed;
+                    $used->order_id = $order->id;
+                    $used->material_id = $new_material->id;
+                    $used->used = $request->quantity[$key];
+                    $used->save();
+                }
+            }
             
             DB::commit();
 
@@ -269,6 +296,38 @@ class OrderController extends Controller
             return view('backend.orders.invoice', compact('transaction'));
         } catch (Exception $e) {
             return redirect()->route('admin.order.index')->with('error', $e->getMessage());
+        }
+    }
+
+    public function payment(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                "bukti_pembayaran" => "required",
+            ]);
+
+            $transaction = Orders::findOrFail($id);
+            if($request->hasFile("bukti_pembayaran")) {
+                $path = storage_path("uploads/bukti/");
+                if(!is_dir($path)) {
+                    mkdir($path,755,true);
+                }
+                $logo = $request->file('bukti_pembayaran');
+                $newName = "bukti_".date("YmdHis").".".$request->bukti_pembayaran->extension();
+                $move = $logo->move($path, $newName);
+                
+                $payment = new Payment;
+                $payment->order_id = $transaction->id;
+                $payment->nominal = $request->nominal;
+                $payment->bukti = $newName;
+                $payment->save();
+            }
+
+            $transaction->status = 4;
+            $transaction->save();
+            return redirect()->route('admin.order.index')->with('success', 'Bukti pembayaran berhasil di unggah, order anda sedang kami proses!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.order.detail', $id)->with('error', $e->getMessage());
         }
     }
 

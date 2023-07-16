@@ -77,7 +77,7 @@
                             </thead>
                             <tbody>
                                 <tr class="font-weight-bolder">
-                                    <td class="text-danger font-size-h3 font-weight-boldest">IDR {{ cRupiah($transaction->price * array_sum(array_column($transaction->details->toArray(), 'quantity'))) }}</td>
+                                    <td class="text-danger font-size-h3 font-weight-boldest">IDR {{ cRupiah($transaction->price) }}</td>
                                 </tr>
                             </tbody>
                         </table>

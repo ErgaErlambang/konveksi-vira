@@ -35,9 +35,9 @@
                     @foreach ($materials as $key => $material)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $material->name }}</td>
-                            <td>{{ $material->type->name }}</td>
-                            <td>{{ $material->stock }}</td>
+                            <td>{{ $material?->name }}</td>
+                            <td>{{ $material?->type?->name ?? "-" }}</td>
+                            <td>{{ $material?->stock ?? "-" }}</td>
                             <td class="text-center mx-auto">
                                 <div class="row p-2">
                                     <a href="{{ route('admin.material.edit', $material->id) }}" class="btn btn-link btn-sm btn-info btn-just-icon like mr-1" style="display: block; margin-block-end: 1.5em;">

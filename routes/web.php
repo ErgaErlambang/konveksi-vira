@@ -80,6 +80,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/taken-order/{id}', 'order_taken')->name('admin.order.taken');
             Route::get('/travel-document/{id}', 'travel_document')->name('admin.order.traveldocument');
             Route::get('/invoice/{invoice}', 'invoice')->name('admin.order.invoice');
+            Route::post('/payment/{id}', 'payment')->name('admin.order.payment');
         });
 
         // Material Management
@@ -90,6 +91,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/{id}', 'edit')->name('admin.material.edit');
             Route::post('/update/{id}', 'update')->name('admin.material.update');
             Route::post('/destory/{id}', 'destroy')->name('admin.material.destroy');
+            Route::get('/get-material', 'get_material')->name('admin.material.get');
         });
 
         // Types Management

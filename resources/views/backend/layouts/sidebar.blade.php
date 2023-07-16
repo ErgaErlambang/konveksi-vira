@@ -6,7 +6,7 @@
     <div class="aside-primary d-flex flex-column align-items-center flex-row-auto">
         <div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-5 py-lg-12">
             <a href="{{ route('admin.dashboard') }}">
-                <img alt="Logo" src="{{asset('assets/backend/media/logos/logo-letter-2.png')}}" class="max-h-30px" />
+                <img alt="Logo" src="{{asset('assets/frontend/img/logo.png')}}" class="max-h-30px" />
             </a>
         </div>
     </div>
@@ -75,14 +75,11 @@
                                 @endif
 
                                 <!-- BEGIN TRANSACTIONS ORDERS -->
-                                @if($role == 1 || $role == 3 || $role == 2 || $role == 4)
                                     <li class="menu-section">
-                                        <h4 class="menu-text">Transaksi</h4>
+                                        <h4 class="menu-text">Order</h4>
                                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                                     </li>
-                                @endif
-                                
-                                @if($role == 1 || $role == 3 || $role == 2)
+
                                     <!-- Orders -->
                                     <li class="menu-item {{ Request::is('admin/orders*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                                         <a href="{{ route('admin.order.index') }}" class="menu-link">
@@ -95,11 +92,11 @@
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="menu-text">Transaksi</span>
+                                            <span class="menu-text">Order</span>
                                         </a>
                                     </li>
-                                @endif
-                                @if($role == 1 || $role == 2 || $role == 4)
+
+                                @if($role == 1 || $role == 2 || $role == 4 || $role == 6)
                                     <!-- History -->
                                     <li class="menu-item {{ Request::is('admin/history*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                                         <a href="{{ route('admin.history.index') }}" class="menu-link">
@@ -111,7 +108,7 @@
                                                     </g>
                                                 </svg>
                                             </span>
-                                            <span class="menu-text">Histori Transaksi</span>
+                                            <span class="menu-text">Histori Order</span>
                                         </a>
                                     </li>
                                 @endif

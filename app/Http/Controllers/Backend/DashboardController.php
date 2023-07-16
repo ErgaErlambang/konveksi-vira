@@ -16,19 +16,34 @@ class DashboardController extends Controller
         // 2 = On Progress
         // 3 = Done
 
-        $data['progress'] = Orders::where('status', 2)->get();
-        $data['done'] = Orders::where('status', 3)->get();
+        if(getRoleId() == 6) {
+            $data['progress'] = Orders::where('user_id', auth()->user()->id)->whereIn('status', [1,3,4,6,7,8,9])->get();
+            $data['done'] = Orders::where('user_id', auth()->user()->id)->where('status', 5)->get();
+        }else {
+            $data['progress'] = Orders::whereIn('status', [1,3,4,6,7,8,9])->get();
+            $data['done'] = Orders::where('status', 5)->get();
+        }
         return view('backend.dashboard.dashboard', compact('data'));
     }
 
-        public function total_done()
+    public function total_done()
     {
-        $orders = Orders::select('id', 'created_at', 'status')
-                ->where('status', 3)
-                ->get()
-                ->groupBy(function($date) {
-                    return \Carbon\Carbon::parse($date->created_at)->format('m');
-                });
+        if(getRoleId() == 6) {
+            $orders = Orders::select('id', 'created_at', 'status')
+                    ->where('user_id', auth()->user()->id)
+                    ->where('status', 5)
+                    ->get()
+                    ->groupBy(function($date) {
+                        return \Carbon\Carbon::parse($date->created_at)->format('m');
+                    });
+        }else {
+            $orders = Orders::select('id', 'created_at', 'status')
+                    ->where('status', 5)
+                    ->get()
+                    ->groupBy(function($date) {
+                        return \Carbon\Carbon::parse($date->created_at)->format('m');
+                    });
+        }
 
         $order_count = [];
         $total = [];
@@ -49,12 +64,22 @@ class DashboardController extends Controller
 
     public function total_progress()
     {
-        $orders = Orders::select('id', 'created_at', 'status')
-        ->whereNot('status', 2)
-        ->get()
-        ->groupBy(function($date) {
-            return \Carbon\Carbon::parse($date->created_at)->format('m');
-        });
+        if(getRoleId() == 6) {
+            $orders = Orders::select('id', 'created_at', 'status')
+            ->whereNotIn('status', [2,5])
+            ->where('user_id', auth()->user()->id)
+            ->get()
+            ->groupBy(function($date) {
+                return \Carbon\Carbon::parse($date->created_at)->format('m');
+            });
+        }else {
+            $orders = Orders::select('id', 'created_at', 'status')
+            ->whereNotIn('status', [2,5])
+            ->get()
+            ->groupBy(function($date) {
+                return \Carbon\Carbon::parse($date->created_at)->format('m');
+            });
+        }
                 
         $order_count = [];
         $total = [];

@@ -10,47 +10,60 @@ function required_icon()
 }
 function getStatusTrx($status) 
 {
-    switch ($status) {
-        case 1:
-            return "<span class='label label-light-warning label-pill label-inline'> Pending </span>";
-            break;
-        
-        case 2:
-            return "<span class='label label-light-danger label-pill label-inline'> Rejected </span>";
-            break;
-
-        case 3:
-            return "<span class='label label-light-success label-pill label-inline'> Approved </span>";
-            break;
-
-        case 4:
-            return "<span class='label label-light-info label-pill label-inline'> Paid </span>";
-            break;
-
-        case 5:
+    if(auth()->user()->role->id == 6) {
+        if($status == 4) {
+            return "<span class='label label-light-warning label-pill label-inline'> On Progress </span>";
+        }else if($status == 9) {
+            return "<span class='label label-light-primary label-pill label-inline'> Menunggu Pembayaran </span>";
+        }else if($status == 5)
             return "<span class='label label-light-success label-pill label-inline'> Done </span>";
-            break;
-        
-        case 6:
-            return "<span class='label label-light-warning label-pill label-inline'> Review Production </span>";
-            break;
-        
-        case 7:
-            return "<span class='label label-light-success label-pill label-inline'> Review Material </span>";
-            break;
-
-        case 8: 
-            return "<span class='label label-light-success label-pill label-inline'> Owner's review </span>";
-            break;
-        
-        case 9:
-            return "<span class='label label-light-success label-pill label-inline'> Material Approved </span>";
-            break;
-
-        default:
-            return "<span class='label label-light-danger label-pill label-inline'> Unknow Status </span>";
-            break;
+        else {
+            return "<span class='label label-light-warning label-pill label-inline'> Pending </span>";
+        }
+    }else {
+        switch ($status) {
+            case 1:
+                return "<span class='label label-light-warning label-pill label-inline'> Pending </span>";
+                break;
+            
+            case 2:
+                return "<span class='label label-light-danger label-pill label-inline'> Rejected </span>";
+                break;
+    
+            case 3:
+                return "<span class='label label-light-success label-pill label-inline'> Approved </span>";
+                break;
+    
+            case 4:
+                return "<span class='label label-light-success label-pill label-inline'> Paid </span>";
+                break;
+    
+            case 5:
+                return "<span class='label label-light-success label-pill label-inline'> Done </span>";
+                break;
+            
+            case 6:
+                return "<span class='label label-light-warning label-pill label-inline'> Review Production </span>";
+                break;
+            
+            case 7:
+                return "<span class='label label-light-success label-pill label-inline'> Review Material </span>";
+                break;
+    
+            case 8: 
+                return "<span class='label label-light-success label-pill label-inline'> Owner's review </span>";
+                break;
+            
+            case 9:
+                return "<span class='label label-light-success label-pill label-inline'> Material Approved </span>";
+                break;
+    
+            default:
+                return "<span class='label label-light-danger label-pill label-inline'> Unknow Status </span>";
+                break;
+        }
     }
+
 }
 
 function getRoleId()

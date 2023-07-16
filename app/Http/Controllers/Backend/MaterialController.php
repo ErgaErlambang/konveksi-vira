@@ -76,4 +76,14 @@ class MaterialController extends Controller
         $material->delete();
         return redirect()->route('admin.material.index')->with('success', 'Material has been successfuly deleted');
     }
+
+    public function get_material()
+    {
+        $materials = Material::all();
+        return  response([
+            "status" => true,
+            "message" => "Material found",
+            "data" => $materials
+        ], 200);
+    }
 }

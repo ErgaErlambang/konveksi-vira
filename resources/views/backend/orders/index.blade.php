@@ -14,7 +14,7 @@
                 <h3 class="card-label">Pending Orders</h3>
             </div>
             <div class="card-toolbar">
-                @if(auth()->user()->role->id == 1 || auth()->user()->role->id == 2)
+                @if(getRoleId() == 1 || getRoleId() == 2 || getRoleId() == 6)
                     <div class="dropdown dropdown-inline mr-2">
                         <a href="{{ route('admin.order.create') }}" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Order</a>
                     </div>

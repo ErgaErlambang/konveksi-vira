@@ -57,7 +57,7 @@
 						<div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<div class="text-dark order-2 order-md-1">
 								<span class="text-muted font-weight-bold mr-2">{{ date('Y') }} ©</span>
-								<a href="javascript:;" target="_blank" class="text-dark-75 text-hover-primary">Konveksi</a>
+								<a href="javascript:;" class="text-dark-75 text-hover-primary">tclothbandung</a>
 							</div>
 						</div>
 					</div>
@@ -84,6 +84,20 @@
 		<script src="{{asset('assets/backend/js/scripts.bundle.js?v=7.0.5')}}"></script>
 		<script src="{{asset('assets/backend/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.5')}}"></script>
 		<script src="{{asset('assets/backend/js/pages/widgets.js?v=7.0.5')}}"></script>
+		<script>
+			function select2refresh($el) {
+				$el.select2({
+					placeholder: "Select an option",
+					allowClear: true,
+					width: '100%'
+				});
+			}
+		</script>
+		<script>
+			$(function () {
+				$('[data-toggle="tooltip"]').tooltip()
+			})
+		</script>
 		<script>
 			$('.form-delete').on('click', function (e) {
 				e.preventDefault();

@@ -29,6 +29,7 @@
                 <div class="form-group">
                     <label class="col-form-label text-right">Tipe {!! required_icon() !!}</label>
                     <select class="form-control select2" id="kt_select2_1" name="type" required>
+                        <option value="" disabled selected></option>
                         @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option> 
                         @endforeach

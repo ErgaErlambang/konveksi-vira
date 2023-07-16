@@ -10,7 +10,11 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        $histories = Orders::latest()->get();
+        if(getRoleId() == 6) {
+            $histories = Orders::where('user_id', auth()->user()->id)->latest()->get();
+        }else {
+            $histories = Orders::latest()->get();
+        }
         return view('backend.history.index', compact('histories'));
     }
 }

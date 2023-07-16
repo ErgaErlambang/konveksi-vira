@@ -19,21 +19,23 @@ class Orders extends Model
         $role = getRoleId();
         switch ($role) {            
             case 2:
-                return $query->whereIn('status', [1, 6])->orderBy('created_at', 'DESC');
+                return $query->whereIn('status', [6, 4])->orderBy('created_at', 'DESC');
                 break;
 
             case 3:
-                return $query->whereIn('status', [6, 7]);
+                return $query->whereIn('status', [6])->orderBy('created_at', 'DESC');
                 break;
 
             case 4:
-                return $query->whereIn('status', [8]);
+                return $query->whereIn('status', [8])->orderBy('created_at', 'DESC');
                 break;
 
             case 5:
-                return $query->whereIn('status', [7, 9]);
+                return $query->whereIn('status', [7])->orderBy('created_at', 'DESC');
                 break;
-
+            case 6:
+                return $query->whereNot('status', 5)->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC');
+                break;
             default:
                 return $query->orderBy('created_at', 'DESC');
                 break;
@@ -48,5 +50,10 @@ class Orders extends Model
     public function details()
     {
         return $this->hasMany(OrderDetail::class, 'order_id');
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(MaterialUsed::class, 'order_id');
     }
 }
