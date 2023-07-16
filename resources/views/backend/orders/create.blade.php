@@ -34,20 +34,20 @@
                 
                 <div class="form-group">
                     <label> Nama Brand {!! required_icon() !!}</label>
-                    <input type="text" class="form-control" placeholder="Branding name" name="brand" value="{{ old('brand') }}">
+                    <input type="text" class="form-control" placeholder="Branding name" name="brand" value="{{ old('brand') }}" required>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label> Nama PIC {!! required_icon() !!}</label>
-                            <input type="text" class="form-control" placeholder="PIC name" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control" placeholder="PIC name" name="name" value="{{ old('name') }}" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label> Nomor PIC {!! required_icon() !!}</label>
-                            <input type="number" class="form-control" placeholder="PIC phone" name="phone" value="{{ old('phone') }}">
+                            <input type="number" class="form-control" placeholder="PIC phone" name="phone" value="{{ old('phone') }}" required>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label> Warna {!! required_icon() !!}</label>
-                                        <input type="text" class="form-control" placeholder="Requested color" name="color[]" value="">
+                                        <input type="text" class="form-control" placeholder="Requested color" name="color[]" value="" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -79,7 +79,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label> Kuantitas {!! required_icon() !!}</label>
-                                        <input type="number" class="form-control" placeholder="Requested quantity" name="quantity[]" value="">
+                                        <input type="number" class="form-control" placeholder="Requested quantity" name="quantity[]" value="" min="12" required>
                                     </div>
                                 </div>
                                 <div class="col-md-1 mt-5 pt-3">
@@ -186,7 +186,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label> Warna {!! required_icon() !!}</label>
-                        <input type="text" class="form-control" placeholder="Requested color" name="color[]" value="">
+                        <input type="text" class="form-control" placeholder="Requested color" name="color[]" value="" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -206,7 +206,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label> Kuantitas {!! required_icon() !!}</label>
-                        <input type="number" class="form-control" placeholder="Requested quantity" name="quantity[]" value="">
+                        <input type="number" class="form-control" placeholder="Requested quantity" name="quantity[]" value="" min="12" required>
                     </div>
                 </div>
                 <div class="col-md-1 mt-5 pt-3">

@@ -47,7 +47,7 @@ class OrderController extends Controller
                 "name" => "required",
                 "phone" => "required",
                 "quantity" => "required",
-                "quantity.*" => "required",
+                "quantity.*" => "required|numeric|min:12",
                 "size" => "required",
                 "size.*" => "required",
                 "color" => "required",
@@ -74,7 +74,7 @@ class OrderController extends Controller
                 }
             }
 
-            if(Auth::user()->role_id !== 6) {
+            if(auth()->user()->role_id !== 6) {
                 // Always create users if using backdoor transaction
                 $email = strtolower(Str::slug($request->name, '-')).'@app.com';
                 $user = User::where('email', $email)->first();
@@ -89,7 +89,7 @@ class OrderController extends Controller
                     $user->save();
                 }
             }else {
-                $user = Auth::user();
+                $user = auth()->user();
                 $status = 1;
             }
 
