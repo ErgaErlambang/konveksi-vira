@@ -78,7 +78,7 @@ class OrderController extends Controller
                 // Always create users if using backdoor transaction
                 $email = strtolower(Str::slug($request->name, '-')).'@app.com';
                 $user = User::where('email', $email)->first();
-                $status = 7;
+                $status = 6;
                 if($user == null) {
                     $user = new User;
                     // role 6 == users, simple ways

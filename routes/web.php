@@ -92,6 +92,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/update/{id}', 'update')->name('admin.material.update');
             Route::post('/destory/{id}', 'destroy')->name('admin.material.destroy');
             Route::get('/get-material', 'get_material')->name('admin.material.get');
+            Route::get('/get-material-price', 'getMaterialPrice')->name('admin.material.getprice');
         });
 
         // Types Management

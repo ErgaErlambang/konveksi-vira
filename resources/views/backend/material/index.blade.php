@@ -27,7 +27,8 @@
                         <th>No</th>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Stock</th>
+                        <th>Stock (kg)</th>
+                        <th>Price/kg</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -37,7 +38,8 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $material?->name }}</td>
                             <td>{{ $material?->type?->name ?? "-" }}</td>
-                            <td>{{ $material?->stock ?? "-" }}</td>
+                            <td>{{ $material?->stock ?? "0" }} KG</td>
+                            <td>Rp {{ cRupiah($material?->price) ?? "0" }}</td>
                             <td class="text-center mx-auto">
                                 <div class="row p-2">
                                     <a href="{{ route('admin.material.edit', $material->id) }}" class="btn btn-link btn-sm btn-info btn-just-icon like mr-1" style="display: block; margin-block-end: 1.5em;">

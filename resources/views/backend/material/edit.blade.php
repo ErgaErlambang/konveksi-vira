@@ -43,6 +43,15 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <span>Dapat terpakai sekitar <span class="text-danger pcs">{{ $type->usable }} pcs</span></span>
+                </div>
+
+                <div class="form-group">
+                    <label> Harga per kg{!! required_icon() !!}</label>
+                    <input type="number" class="form-control" placeholder="Material price" name="price" value="{{ $material->price }}">
+                </div>
                 
                 <div class="form-group">
                     <label> Stock {!! required_icon() !!}</label>
@@ -61,11 +70,26 @@
 
 @push('scripts')
 <script>
-    var avatar5 = new KTImageInput('kt_image_5');
-</script>
-<script>
     $('.select2').select2({
         placeholder: "Select an option"
     });
+</script>
+
+<script>
+    $(".select2").on('input', function() {
+        let $val = $(this).val()
+        $.ajax({
+            url : "{{route('admin.material.getprice')}}?typeId="+$val,
+            method: "GET",
+            success: function(res) {
+                let pcs = res.data.usable ?? "-";
+                // if(pcs == null)
+                $(".pcs").text(pcs + " pcs")
+            },
+            error: function(err, xmlResponseError) {
+                
+            }
+        })
+    })
 </script>
 @endpush

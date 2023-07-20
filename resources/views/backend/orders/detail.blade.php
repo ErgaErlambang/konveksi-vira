@@ -194,6 +194,7 @@
                         @endif
                     </div>
                     @if($role !== 6)
+                        @if($order->status !== 5)
                         <div class="row bg-white py-5 font-weight-bold">
                             <form action="{{ route('admin.order.updatestatus', $order->id) }}" method="post">
                                 @csrf
@@ -213,7 +214,8 @@
                                             <select class="form-control select2 w-100" id="kt_select2_1" name="status" required>
                                                 <option></option>
                                                 @if($role == 2)
-                                                    <option value="6">Approved</option>
+                                                    <option value="6">Approve Order</option>
+                                                    <option value="10">Approve Payment</option>
                                                     <option value="5">Done</option>
                                                 @elseif($role == 3)
                                                     <option value="7">Approved</option>
@@ -231,18 +233,20 @@
                                                     <option value="7">Approve Production</option>
                                                     <option value="8">Approve Material</option>
                                                     <option value="9">Approve Owners</option>
+                                                    <option value="10">Approve Payment</option>
+                                                    <option value="11">Pemotongan Kain</option>
                                                 @endif
                                             </select>
                                         @endif
 
                                     </div>
-                                    @if($role == 3)
+                                    @if($role == 3 || $role == 1)
                                         <div class="card mb-4">
                                             <div class="card-header">
                                                 Bahan yang dibutuhkan
                                             </div>
                                             <div class="card-body">
-                                                @if($order->status > 7)
+                                                @if($order->status == 6)
                                                 <div class="getOR">
                                                     <div class="row">
                                                         <div class="col-md-5">
@@ -288,9 +292,9 @@
                                         </div>
                                     </div>
 
-                                    @if($role == 5 && $order->status == 7)
+                                    @if(($role == 5 || $role == 1) && $order->status == 7)
                                         <div class="form-group">
-                                            <label> Harga {!! required_icon() !!} </label>
+                                            <label>Total Harga Bahan baku {!! required_icon() !!} </label>
                                             <input type="number" class="form-control" value="" placeholder="Price" name="price" required>
                                         </div>
                                     @endif
@@ -306,6 +310,7 @@
 
                             </form>
                         </div>
+                        @endif
                     @endif
                 </div>
             </div>

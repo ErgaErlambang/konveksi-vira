@@ -24,10 +24,12 @@ class TypesController extends Controller
         try {
             $request->validate([
                 "name" => "required",
+                "usable" => "required"
             ]);
 
             $material = new Types;
             $material->name = $request->name;
+            $material->usable = $request->usable;
             $material->save();
 
             return redirect()->route('admin.types.index')->with('success', 'Type has been successfuly created');
@@ -48,9 +50,11 @@ class TypesController extends Controller
         try {
             $request->validate([
                 "name" => "required",
+                "usable" => "required"
             ]);
 
             $material->name = $request->name;
+            $material->usable = $request->usable;
             $material->update();
 
             return redirect()->route('admin.types.index')->with('success', 'Type has been successfuly updated');

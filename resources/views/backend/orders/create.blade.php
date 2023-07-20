@@ -99,7 +99,7 @@
                         @foreach ($materials as $material)
                             <option value="{{ $material->id }}">{{ $material->name }}</option> 
                         @endforeach
-                        <option value="others">Bahan lainnya</option>
+                        {{-- <option value="others">Bahan lainnya</option> --}}
                     </select>
                     <input type="text" class="form-control mt-2 {{ empty(old('other_materials')) ? 'd-none' : '' }}" id="other_material" placeholder="Input other materials" name="other_materials" value="{{ old('other_materials') }}" >
                     

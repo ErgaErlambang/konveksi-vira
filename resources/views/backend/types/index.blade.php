@@ -26,6 +26,7 @@
                     <tr>
                         <th>No</th>
                         <th>Name</th>
+                        <th>Usable/kg</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $material->name }}</td>
+                            <td>{{ $material->usable ?? "0" }} pcs</td>
                             <td class="text-center mx-auto">
                                 <div class="row p-2">
                                     <a href="{{ route('admin.types.edit', $material->id) }}" class="btn btn-link btn-sm btn-info btn-just-icon like mr-1" style="display: block; margin-block-end: 1.5em;">

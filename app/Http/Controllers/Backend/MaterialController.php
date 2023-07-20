@@ -28,12 +28,14 @@ class MaterialController extends Controller
                 "name" => "required",
                 "type" => "required",
                 "stock" => "required",
+                "price" => "required"
             ]);
 
             $material = new Material;
             $material->name = $request->name;
             $material->type_id = $request->type;
             $material->stock = $request->stock;
+            $material->price = $request->price;
             $material->save();
 
             return redirect()->route('admin.material.index')->with('success', 'Material has been successfuly created');
@@ -57,11 +59,13 @@ class MaterialController extends Controller
                 "name" => "required",
                 "type" => "required",
                 "stock" => "required",
+                "price" => "required"
             ]);
 
             $material->name = $request->name;
             $material->type_id = $request->type;
             $material->stock = $request->stock;
+            $material->price = $request->price;
             $material->update();
 
             return redirect()->route('admin.material.index')->with('success', 'Material has been successfuly updated');
@@ -85,5 +89,26 @@ class MaterialController extends Controller
             "message" => "Material found",
             "data" => $materials
         ], 200);
+    }
+
+    public function getMaterialPrice(Request $request)
+    {
+        try {
+            $type = Types::find($request->typeId);
+            if(empty($type)) {
+                throw new \Exception("Type not Found");
+            }
+            return response([
+                "status" => true,
+                "data" => $type
+            ], 200);
+        } catch (\Exception $e) {
+            return response([
+                "status" => false,
+                "message" => $e->getMessage()
+            ], 500);
+        }
+
+
     }
 }

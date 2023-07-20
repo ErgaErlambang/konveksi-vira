@@ -25,6 +25,12 @@
                     <label> Name {!! required_icon() !!}</label>
                     <input type="text" class="form-control" placeholder="type name" name="name" value="{{ old('name') }}">
                 </div>
+
+                
+                <div class="form-group">
+                    <label> Dapat Terpakai pcs per kg{!! required_icon() !!} </label>
+                    <input type="text" class="form-control" placeholder="type usable" name="usable" value="{{ old('usable') }}">
+                </div>
             </div>
             
             <div class="card-footer">
